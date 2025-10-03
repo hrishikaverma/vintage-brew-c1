@@ -446,85 +446,448 @@ export function Testimonials() {
           </motion.div>
         )}
 
-        {/* Rating Breakdown */}
+        {/* Enhanced Analytics Dashboard */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="max-w-2xl mx-auto mb-16"
+          className="max-w-6xl mx-auto mb-16"
         >
-          <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-[#CBB89D]/30">
-            <CardContent className="p-8">
-              <h3 className="text-2xl text-[#6B4F37] text-center mb-6" style={{ fontFamily: 'Playfair Display' }}>
-                Rating Breakdown
-              </h3>
-              <div className="space-y-3">
-                {ratingBreakdown.map((rating, index) => (
-                  <div key={rating.stars} className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-1 w-12">
-                      <span className="text-sm text-[#6B4F37]">{rating.stars}</span>
-                      <Star className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]" />
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Rating Breakdown Chart */}
+            <Card className="bg-white/90 backdrop-blur-sm shadow-xl border border-[#CBB89D]/30 overflow-hidden">
+              <CardContent className="p-8">
+                <div className="flex items-center justify-center space-x-3 mb-8">
+                  <TrendingUp className="w-6 h-6 text-[#D4AF37]" />
+                  <h3 className="text-2xl text-[#6B4F37]" style={{ fontFamily: 'Playfair Display' }}>
+                    Rating Analytics
+                  </h3>
+                  <Badge className="bg-[#8DA399]/10 text-[#8DA399]">Live Data</Badge>
+                </div>
+
+                {/* Overall Rating Display */}
+                <div className="text-center mb-8 p-6 bg-gradient-to-r from-[#D4AF37]/10 to-[#8DA399]/10 rounded-2xl">
+                  <div className="flex items-center justify-center space-x-4 mb-4">
+                    <motion.div
+                      className="text-5xl text-[#6B4F37]"
+                      style={{ fontFamily: 'Playfair Display' }}
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      4.9
+                    </motion.div>
+                    <div className="text-left">
+                      <div className="flex items-center space-x-1 mb-1">
+                        {[...Array(5)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ delay: i * 0.1, type: "spring" }}
+                          >
+                            <Star className="w-5 h-5 fill-[#D4AF37] text-[#D4AF37]" />
+                          </motion.div>
+                        ))}
+                      </div>
+                      <p className="text-sm text-[#6B4F37]/70" style={{ fontFamily: 'Inter' }}>
+                        Based on 500+ reviews
+                      </p>
                     </div>
-                    <div className="flex-1">
-                      <Progress 
-                        value={rating.percentage} 
-                        className="h-2" 
-                      />
-                    </div>
-                    <span className="text-sm text-[#6B4F37]/60 w-16 text-right">
-                      {rating.count}
-                    </span>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  <p className="text-[#6B4F37]/80 text-sm" style={{ fontFamily: 'Inter' }}>
+                    Excellent • 96% recommend us to friends
+                  </p>
+                </div>
+
+                {/* Detailed Rating Breakdown */}
+                <div className="space-y-4">
+                  {ratingBreakdown.map((rating, index) => (
+                    <motion.div
+                      key={rating.stars}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="group hover:bg-[#F5F2ED]/50 p-3 rounded-xl transition-all duration-300"
+                    >
+                      <div className="flex items-center space-x-4 mb-2">
+                        <div className="flex items-center space-x-1 w-16">
+                          <span className="text-sm text-[#6B4F37] font-medium">{rating.stars}</span>
+                          <Star className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]" />
+                        </div>
+                        <div className="flex-1 relative">
+                          <div className="h-3 bg-[#CBB89D]/20 rounded-full overflow-hidden">
+                            <motion.div
+                              className="h-full bg-gradient-to-r from-[#D4AF37] to-[#8DA399] rounded-full"
+                              initial={{ width: 0 }}
+                              animate={{ width: `${rating.percentage}%` }}
+                              transition={{ delay: index * 0.2, duration: 1, ease: "easeOut" }}
+                            />
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-sm text-[#6B4F37]/80 font-medium w-12 text-right">
+                            {rating.percentage}%
+                          </span>
+                          <Badge variant="secondary" className="text-xs w-12 justify-center">
+                            {rating.count}
+                          </Badge>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="mt-8 pt-6 border-t border-[#CBB89D]/30">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center p-4 bg-[#8DA399]/10 rounded-xl">
+                      <div className="text-2xl text-[#8DA399] mb-1" style={{ fontFamily: 'Playfair Display' }}>
+                        96%
+                      </div>
+                      <p className="text-xs text-[#6B4F37]/70" style={{ fontFamily: 'Inter' }}>
+                        Would Recommend
+                      </p>
+                    </div>
+                    <div className="text-center p-4 bg-[#D4AF37]/10 rounded-xl">
+                      <div className="text-2xl text-[#D4AF37] mb-1" style={{ fontFamily: 'Playfair Display' }}>
+                        4.2
+                      </div>
+                      <p className="text-xs text-[#6B4F37]/70" style={{ fontFamily: 'Inter' }}>
+                        Avg. Visit Rating
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Review Trends & Insights */}
+            <Card className="bg-white/90 backdrop-blur-sm shadow-xl border border-[#CBB89D]/30 overflow-hidden">
+              <CardContent className="p-8">
+                <div className="flex items-center justify-center space-x-3 mb-8">
+                  <Users className="w-6 h-6 text-[#8DA399]" />
+                  <h3 className="text-2xl text-[#6B4F37]" style={{ fontFamily: 'Playfair Display' }}>
+                    Customer Insights
+                  </h3>
+                  <Badge className="bg-[#D4AF37]/10 text-[#D4AF37]">Real-time</Badge>
+                </div>
+
+                {/* Top Mentioned Items */}
+                <div className="mb-8">
+                  <h4 className="text-lg text-[#6B4F37] mb-4" style={{ fontFamily: 'Playfair Display' }}>
+                    Most Loved Items
+                  </h4>
+                  <div className="space-y-3">
+                    {[
+                      { item: 'Honey Latte', mentions: 89, color: '#D4AF37' },
+                      { item: 'Vintage Espresso', mentions: 73, color: '#8DA399' },
+                      { item: 'Artisan Croissant', mentions: 65, color: '#CBB89D' },
+                      { item: 'Cold Brew Delight', mentions: 52, color: '#6B4F37' }
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.item}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center justify-between p-3 bg-[#F5F2ED]/50 rounded-lg hover:bg-[#F5F2ED] transition-colors group"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div 
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: item.color }}
+                          />
+                          <span className="text-[#6B4F37]" style={{ fontFamily: 'Inter' }}>
+                            {item.item}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm text-[#6B4F37]/70">{item.mentions} mentions</span>
+                          <Heart className="w-4 h-4 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Review Platforms */}
+                <div className="mb-8">
+                  <h4 className="text-lg text-[#6B4F37] mb-4" style={{ fontFamily: 'Playfair Display' }}>
+                    Review Sources
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { platform: 'Google', count: 245, color: '#4285F4', percentage: 49 },
+                      { platform: 'Yelp', count: 132, count: 132, color: '#FF1A1A', percentage: 26 },
+                      { platform: 'Facebook', count: 89, color: '#1877F2', percentage: 18 },
+                      { platform: 'TripAdvisor', count: 34, color: '#00AA6C', percentage: 7 }
+                    ].map((platform, index) => (
+                      <motion.div
+                        key={platform.platform}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: index * 0.1, type: "spring" }}
+                        className="text-center p-4 bg-white/60 rounded-xl border border-[#CBB89D]/20 hover:shadow-lg transition-all duration-300"
+                      >
+                        <div 
+                          className="text-lg mb-1"
+                          style={{ fontFamily: 'Playfair Display', color: platform.color }}
+                        >
+                          {platform.count}
+                        </div>
+                        <p className="text-xs text-[#6B4F37]/70 mb-1" style={{ fontFamily: 'Inter' }}>
+                          {platform.platform}
+                        </p>
+                        <div className="w-full bg-[#CBB89D]/20 rounded-full h-1">
+                          <motion.div
+                            className="h-1 rounded-full"
+                            style={{ backgroundColor: platform.color }}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${platform.percentage}%` }}
+                            transition={{ delay: index * 0.2, duration: 1 }}
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Customer Sentiment */}
+                <div className="p-6 bg-gradient-to-r from-[#8DA399]/10 to-[#D4AF37]/10 rounded-2xl">
+                  <h4 className="text-lg text-[#6B4F37] mb-4" style={{ fontFamily: 'Playfair Display' }}>
+                    Customer Sentiment
+                  </h4>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <motion.div
+                        className="text-2xl mb-1"
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        😊
+                      </motion.div>
+                      <div className="text-lg text-[#8DA399]" style={{ fontFamily: 'Playfair Display' }}>
+                        92%
+                      </div>
+                      <p className="text-xs text-[#6B4F37]/70">Positive</p>
+                    </div>
+                    <div>
+                      <div className="text-2xl mb-1">😐</div>
+                      <div className="text-lg text-[#CBB89D]" style={{ fontFamily: 'Playfair Display' }}>
+                        6%
+                      </div>
+                      <p className="text-xs text-[#6B4F37]/70">Neutral</p>
+                    </div>
+                    <div>
+                      <div className="text-2xl mb-1">😟</div>
+                      <div className="text-lg text-[#6B4F37]/50" style={{ fontFamily: 'Playfair Display' }}>
+                        2%
+                      </div>
+                      <p className="text-xs text-[#6B4F37]/70">Negative</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </motion.div>
 
-        {/* Enhanced Stats */}
+        {/* Premium Stats Dashboard */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
+          className="mb-16"
         >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="text-center"
-              onHoverStart={() => setHoveredStat(index)}
-              onHoverEnd={() => setHoveredStat(null)}
-              whileHover={{ scale: 1.05 }}
-            >
-              <Card className="bg-white/60 backdrop-blur-sm shadow-lg border border-[#CBB89D]/30 p-6 hover:shadow-xl transition-all duration-300">
-                <motion.div
-                  animate={{ 
-                    color: hoveredStat === index ? stat.color : '#6B4F37',
-                    scale: hoveredStat === index ? 1.1 : 1
-                  }}
-                  className="mb-4 flex justify-center"
-                >
-                  <stat.icon className="w-8 h-8" />
-                </motion.div>
-                <motion.div 
-                  className="text-3xl md:text-4xl mb-2"
-                  style={{ 
-                    fontFamily: 'Playfair Display',
-                    color: hoveredStat === index ? stat.color : '#6B4F37'
-                  }}
-                  animate={{ scale: hoveredStat === index ? 1.1 : 1 }}
-                >
-                  {stat.number}
-                </motion.div>
-                <p 
-                  className="text-[#6B4F37]/70"
-                  style={{ fontFamily: 'Inter' }}
-                >
-                  {stat.label}
-                </p>
-              </Card>
-            </motion.div>
-          ))}
+          <div className="text-center mb-12">
+            <h3 className="text-3xl text-[#6B4F37] mb-4" style={{ fontFamily: 'Playfair Display' }}>
+              Our Journey in Numbers
+            </h3>
+            <p className="text-[#6B4F37]/70 max-w-2xl mx-auto" style={{ fontFamily: 'Inter' }}>
+              Every cup tells a story, every customer becomes part of our family. 
+              Here's what we've achieved together.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="relative group"
+                onHoverStart={() => setHoveredStat(index)}
+                onHoverEnd={() => setHoveredStat(null)}
+                whileHover={{ scale: 1.02, y: -5 }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+              >
+                {/* Background Gradient Effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white to-[#F5F2ED] rounded-2xl transform rotate-1 group-hover:rotate-2 transition-transform duration-500" />
+                
+                <Card className="relative bg-white shadow-xl border-2 border-[#CBB89D]/20 group-hover:border-[#D4AF37]/40 rounded-2xl overflow-hidden transition-all duration-500">
+                  {/* Decorative Top Bar */}
+                  <div 
+                    className="h-2 w-full transition-all duration-500"
+                    style={{ 
+                      background: `linear-gradient(90deg, ${stat.color}, ${stat.color}80)` 
+                    }}
+                  />
+                  
+                  <CardContent className="p-8 text-center">
+                    {/* Icon with Animation */}
+                    <motion.div
+                      className="mb-6 relative"
+                      animate={{ 
+                        scale: hoveredStat === index ? 1.2 : 1,
+                        rotate: hoveredStat === index ? 5 : 0
+                      }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      {/* Icon Background Circle */}
+                      <div 
+                        className="w-20 h-20 mx-auto rounded-full flex items-center justify-center transition-all duration-500"
+                        style={{ 
+                          backgroundColor: hoveredStat === index ? `${stat.color}20` : '#F5F2ED',
+                          border: `2px solid ${hoveredStat === index ? stat.color : '#CBB89D40'}`
+                        }}
+                      >
+                        <stat.icon 
+                          className="w-10 h-10 transition-colors duration-500" 
+                          style={{ 
+                            color: hoveredStat === index ? stat.color : '#6B4F37' 
+                          }}
+                        />
+                      </div>
+                      
+                      {/* Floating Particles Effect */}
+                      {hoveredStat === index && (
+                        <motion.div
+                          className="absolute inset-0"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                        >
+                          {[...Array(3)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              className="absolute w-2 h-2 rounded-full"
+                              style={{ backgroundColor: stat.color }}
+                              initial={{ 
+                                x: Math.random() * 40 - 20, 
+                                y: Math.random() * 40 - 20,
+                                scale: 0 
+                              }}
+                              animate={{ 
+                                y: -50,
+                                scale: [0, 1, 0],
+                                opacity: [0, 1, 0]
+                              }}
+                              transition={{ 
+                                duration: 2, 
+                                delay: i * 0.2,
+                                repeat: Infinity 
+                              }}
+                            />
+                          ))}
+                        </motion.div>
+                      )}
+                    </motion.div>
+
+                    {/* Number with Counter Animation */}
+                    <motion.div 
+                      className="text-4xl md:text-5xl mb-3 font-bold"
+                      style={{ 
+                        fontFamily: 'Playfair Display',
+                        color: hoveredStat === index ? stat.color : '#6B4F37'
+                      }}
+                      animate={{ 
+                        scale: hoveredStat === index ? 1.1 : 1,
+                        textShadow: hoveredStat === index ? `0 0 20px ${stat.color}40` : '0 0 0px transparent'
+                      }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      {stat.number}
+                    </motion.div>
+
+                    {/* Label */}
+                    <motion.p 
+                      className="text-[#6B4F37]/80 uppercase tracking-wider"
+                      style={{ fontFamily: 'Inter' }}
+                      animate={{ 
+                        color: hoveredStat === index ? stat.color : '#6B4F3780'
+                      }}
+                    >
+                      {stat.label}
+                    </motion.p>
+
+                    {/* Progress Bar */}
+                    <div className="mt-6 w-full bg-[#CBB89D]/20 rounded-full h-1 overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full"
+                        style={{ backgroundColor: stat.color }}
+                        initial={{ width: 0 }}
+                        animate={{ 
+                          width: hoveredStat === index ? '100%' : '70%'
+                        }}
+                        transition={{ duration: 1, delay: index * 0.2 }}
+                      />
+                    </div>
+
+                    {/* Hover Details */}
+                    <AnimatePresence>
+                      {hoveredStat === index && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 20 }}
+                          className="mt-4 p-3 bg-[#F5F2ED]/80 rounded-lg"
+                        >
+                          <p className="text-xs text-[#6B4F37]/70" style={{ fontFamily: 'Inter' }}>
+                            {index === 0 && "Growing every day with loyal customers who love our craft"}
+                            {index === 1 && "Consistently rated excellent across all review platforms"}
+                            {index === 2 && "Eight wonderful years of brewing happiness"}
+                            {index === 3 && "From classic espresso to innovative seasonal blends"}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </CardContent>
+
+                  {/* Corner Decoration */}
+                  <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
+                    <Coffee className="w-6 h-6 text-[#6B4F37]" />
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Additional Achievement Badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            className="mt-12 flex flex-wrap justify-center gap-4"
+          >
+            {[
+              { icon: Award, text: "Best Coffee Shop 2023", color: "#D4AF37" },
+              { icon: Heart, text: "Community Favorite", color: "#8DA399" },
+              { icon: Star, text: "Top Rated Café", color: "#6B4F37" },
+              { icon: Users, text: "People's Choice", color: "#CBB89D" }
+            ].map((badge, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-[#CBB89D]/30"
+              >
+                <badge.icon 
+                  className="w-4 h-4" 
+                  style={{ color: badge.color }}
+                />
+                <span className="text-sm text-[#6B4F37]" style={{ fontFamily: 'Inter' }}>
+                  {badge.text}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
 
         {/* Customer Photos */}
