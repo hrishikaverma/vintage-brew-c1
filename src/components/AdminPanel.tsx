@@ -44,69 +44,73 @@ function MenuManagement() {
   const [editingItem, setEditingItem] = useState(null);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header Actions */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl text-[#6B4F37]" style={{ fontFamily: 'Playfair Display' }}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h2 className="text-xl md:text-2xl text-[#6B4F37]" style={{ fontFamily: 'Playfair Display' }}>
             Menu Management
           </h2>
-          <p className="text-[#6B4F37]/70" style={{ fontFamily: 'Inter' }}>
+          <p className="text-sm md:text-base text-[#6B4F37]/70 mt-1" style={{ fontFamily: 'Inter' }}>
             Manage your café menu items, pricing, and availability
           </p>
         </div>
         <Button
           onClick={() => setShowAddForm(true)}
-          className="bg-[#8DA399] hover:bg-[#8DA399]/90 text-white"
+          className="bg-[#8DA399] hover:bg-[#8DA399]/90 text-white shrink-0"
           style={{ fontFamily: 'Inter' }}
+          size="sm"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add Menu Item
+          <span className="hidden sm:inline">Add Menu Item</span>
+          <span className="sm:hidden">Add Item</span>
         </Button>
       </div>
 
       {/* Filters */}
       <Card className="bg-white/90 backdrop-blur-sm shadow-lg border border-[#CBB89D]/30">
-        <CardContent className="p-4">
-          <div className="flex items-center space-x-4">
-            <div className="flex-1">
+        <CardContent className="p-3 md:p-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+            <div className="flex-1 min-w-0">
               <div className="relative">
                 <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6B4F37]/40" />
                 <Input 
                   placeholder="Search menu items..."
-                  className="pl-10 border-[#CBB89D]/30 focus:border-[#8DA399]"
+                  className="pl-10 border-[#CBB89D]/30 focus:border-[#8DA399] text-sm"
                   style={{ fontFamily: 'Inter' }}
                 />
               </div>
             </div>
-            <Select>
-              <SelectTrigger className="w-48 border-[#CBB89D]/30">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="hot-drinks">Hot Drinks</SelectItem>
-                <SelectItem value="cold-drinks">Cold Drinks</SelectItem>
-                <SelectItem value="pastries">Pastries</SelectItem>
-                <SelectItem value="sandwiches">Sandwiches</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select>
-              <SelectTrigger className="w-32 border-[#CBB89D]/30">
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex gap-3 sm:gap-4">
+              <Select>
+                <SelectTrigger className="w-full sm:w-40 border-[#CBB89D]/30 text-sm">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  <SelectItem value="hot-drinks">Hot Drinks</SelectItem>
+                  <SelectItem value="cold-drinks">Cold Drinks</SelectItem>
+                  <SelectItem value="pastries">Pastries</SelectItem>
+                  <SelectItem value="sandwiches">Sandwiches</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select>
+                <SelectTrigger className="w-full sm:w-28 border-[#CBB89D]/30 text-sm">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="inactive">Inactive</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Menu Items Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {menuItems.map((item) => (
           <motion.div
             key={item.id}
@@ -116,7 +120,7 @@ function MenuManagement() {
             transition={{ duration: 0.3 }}
           >
             <Card className="bg-white/90 backdrop-blur-sm shadow-lg border border-[#CBB89D]/30 hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <div className="relative h-48 bg-[#F5F2ED]">
+              <div className="relative h-40 sm:h-48 bg-[#F5F2ED]">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <Badge 
                   className={`absolute top-3 right-3 ${
@@ -135,27 +139,27 @@ function MenuManagement() {
                 </div>
               </div>
               
-              <CardContent className="p-4">
+              <CardContent className="p-3 sm:p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-2xl text-[#8DA399]" style={{ fontFamily: 'Playfair Display' }}>
+                  <span className="text-xl sm:text-2xl text-[#8DA399]" style={{ fontFamily: 'Playfair Display' }}>
                     ${item.price}
                   </span>
                   <div className="flex items-center space-x-1 text-[#D4AF37]">
-                    <Star className="w-4 h-4 fill-current" />
-                    <span className="text-sm" style={{ fontFamily: 'Inter' }}>4.8</span>
+                    <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
+                    <span className="text-xs sm:text-sm" style={{ fontFamily: 'Inter' }}>4.8</span>
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-sm text-[#6B4F37]/70" style={{ fontFamily: 'Inter' }}>
+                    <p className="text-xs sm:text-sm text-[#6B4F37]/70" style={{ fontFamily: 'Inter' }}>
                       Sales this month
                     </p>
-                    <p className="text-lg text-[#6B4F37]" style={{ fontFamily: 'Inter' }}>
+                    <p className="text-base sm:text-lg text-[#6B4F37]" style={{ fontFamily: 'Inter' }}>
                       {item.sales}
                     </p>
                   </div>
-                  <TrendingUp className="w-5 h-5 text-green-500" />
+                  <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
                 </div>
 
                 <div className="flex space-x-2">
@@ -163,24 +167,24 @@ function MenuManagement() {
                     variant="outline"
                     size="sm"
                     onClick={() => setEditingItem(item)}
-                    className="flex-1 border-[#8DA399] text-[#8DA399] hover:bg-[#8DA399] hover:text-white"
+                    className="flex-1 border-[#8DA399] text-[#8DA399] hover:bg-[#8DA399] hover:text-white text-xs sm:text-sm"
                   >
-                    <Edit className="w-4 h-4 mr-1" />
-                    Edit
+                    <Edit className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                    <span className="hidden sm:inline">Edit</span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-[#CBB89D] text-[#6B4F37] hover:bg-[#F5F2ED]"
+                    className="border-[#CBB89D] text-[#6B4F37] hover:bg-[#F5F2ED] px-2 sm:px-3"
                   >
-                    <Eye className="w-4 h-4" />
+                    <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-red-300 text-red-600 hover:bg-red-50"
+                    className="border-red-300 text-red-600 hover:bg-red-50 px-2 sm:px-3"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </div>
               </CardContent>
@@ -207,7 +211,7 @@ function MenuManagement() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl"
+              className="w-full max-w-2xl mx-4"
             >
               <Card className="bg-white shadow-2xl border border-[#CBB89D]/30">
                 <CardHeader>
@@ -218,8 +222,8 @@ function MenuManagement() {
                     {editingItem ? 'Edit Menu Item' : 'Add New Menu Item'}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
+                <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6">
+                  <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="name" className="text-[#6B4F37]">Item Name</Label>
                       <Input 
@@ -244,7 +248,7 @@ function MenuManagement() {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="price" className="text-[#6B4F37]">Price ($)</Label>
                       <Input 
